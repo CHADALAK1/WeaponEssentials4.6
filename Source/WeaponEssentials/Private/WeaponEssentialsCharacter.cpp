@@ -18,7 +18,7 @@ AWeaponEssentialsCharacter::AWeaponEssentialsCharacter(const FObjectInitializer&
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
-	// set our turn rates for input
+	// Set our turn rates for input
 	BaseTurnRate = 45.f;
 	BaseLookUpRate = 45.f;
 
@@ -49,8 +49,8 @@ AWeaponEssentialsCharacter::AWeaponEssentialsCharacter(const FObjectInitializer&
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
 
-	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
-	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+	/* Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
+	*  are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++) */
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -68,15 +68,17 @@ void AWeaponEssentialsCharacter::SetupPlayerInputComponent(class UInputComponent
 	InputComponent->BindAxis("MoveForward", this, &AWeaponEssentialsCharacter::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &AWeaponEssentialsCharacter::MoveRight);
 
-	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
-	// "turn" handles devices that provide an absolute delta, such as a mouse.
-	// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
+	/*
+	 * We have 2 versions of the rotation bindings to handle different kinds of devices differently
+	 * "turn" handles devices that provide an absolute delta, such as a mouse.
+	 * "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
+	*/
 	InputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
 	InputComponent->BindAxis("TurnRate", this, &AWeaponEssentialsCharacter::TurnAtRate);
 	InputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	InputComponent->BindAxis("LookUpRate", this, &AWeaponEssentialsCharacter::LookUpAtRate);
 
-	// handle touch devices
+	// Handle touch devices
 	InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AWeaponEssentialsCharacter::TouchStarted);
 }
 
@@ -101,7 +103,7 @@ void AWeaponEssentialsCharacter::GiveDefaultWeapon()
 
 void AWeaponEssentialsCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
 {
-	// jump, but only on the first touch
+	// Jump, but only on the first touch
 	if (FingerIndex == ETouchIndex::Touch1)
 	{
 		Jump();
@@ -110,13 +112,13 @@ void AWeaponEssentialsCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVe
 
 void AWeaponEssentialsCharacter::TurnAtRate(float Rate)
 {
-	// calculate delta for this frame from the rate information
+	// Calculate delta for this frame from the rate information
 	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
 }
 
 void AWeaponEssentialsCharacter::LookUpAtRate(float Rate)
 {
-	// calculate delta for this frame from the rate information
+	// Calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
@@ -124,11 +126,11 @@ void AWeaponEssentialsCharacter::MoveForward(float Value)
 {
 	if ((Controller != NULL) && (Value != 0.0f))
 	{
-		// find out which way is forward
+		// Find out which way is forward
 		const FRotator Rotation = Controller->GetControlRotation();
 		const FRotator YawRotation(0, Rotation.Yaw, 0);
 
-		// get forward vector
+		// Get forward vector
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 		AddMovementInput(Direction, Value);
 	}
@@ -138,13 +140,13 @@ void AWeaponEssentialsCharacter::MoveRight(float Value)
 {
 	if ( (Controller != NULL) && (Value != 0.0f) )
 	{
-		// find out which way is right
+		// Find out which way is right
 		const FRotator Rotation = Controller->GetControlRotation();
 		const FRotator YawRotation(0, Rotation.Yaw, 0);
 	
-		// get right vector 
+		// Get right vector 
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-		// add movement in that direction
+		// Add movement in that direction
 		AddMovementInput(Direction, Value);
 	}
 }
