@@ -10,10 +10,9 @@ public class WeaponEssentialsTarget : TargetRules
 		Type = TargetType.Game;
 	}
 
-	//
-	// TargetRules interface.
-	//
-
+	/*
+	* TargetRules interface.
+	*/
 	public override void SetupBinaries(
 		TargetInfo Target,
 		ref List<UEBuildBinaryConfiguration> OutBuildBinaryConfigurations,
