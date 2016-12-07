@@ -9,8 +9,6 @@
 AWeapon::AWeapon(const FObjectInitializer& ObjectInitializer)
 : Super(ObjectInitializer)
 {
-
-
 	CollisionComp = ObjectInitializer.CreateDefaultSubobject<UBoxComponent>(this, TEXT("CollisionComp"));
 	RootComponent = CollisionComp;
 

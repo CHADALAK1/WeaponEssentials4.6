@@ -20,7 +20,7 @@ class AWeaponEssentialsCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	UCameraComponent* FollowCamera;
 
-	/*COLLISION FOR CHARACTER*/
+	/* Collision for character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision)
 	UBoxComponent* CollisionComp;
 
@@ -43,7 +43,6 @@ class AWeaponEssentialsCharacter : public ACharacter
 
 	UFUNCTION()
 	void OnCollision(AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult &SweepResult);
-
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Inventory)
 	TArray<class AWeapon*> Inventory;
