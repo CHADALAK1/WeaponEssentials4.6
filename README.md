@@ -1,4 +1,4 @@
-# WeaponEssentials4.6
+# Weapon Essentials 4.6
 
 This is the tutorial SOURCE code for Weapon Essentials 4.6.
 
